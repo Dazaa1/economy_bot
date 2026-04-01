@@ -1,0 +1,15 @@
+{
+  "name": "economybot",
+  "version": "1.0.0",
+  "description": "bot",
+  "license": "ISC",
+  "author": "daza",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.0"
+  }
+}
