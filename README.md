@@ -93,7 +93,10 @@ Ready! Logged in as <bot username>
 - `/ping` — Replies with `Pong!`
 - `/server` — Replies with server name and member count
 - `/user` — Replies with the invoking user's username and join date.
-- `/ban` — Bans a mentioned user from the server (requires appropriate permissions)
+
+### Moderation
+
+- `/ban` — Bans a specified user from the server (requires appropriate permissions)
 
 ## Database
 
