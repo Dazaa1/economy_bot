@@ -8,6 +8,7 @@ module.exports = {
         const { id, username } = interaction.user;
 
         db.upsertUser.run({ id, username });
+        
 
         const user = db.getUser.get(id);
 
