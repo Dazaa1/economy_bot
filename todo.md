@@ -1,3 +1,3 @@
 - [ ] RPG functionality.
   - [x] Create a shop table to store items and their prices.
-  - [ ] Implement a command for everyone to view the shop and its items.
+  - [x] Implement a command for everyone to view the shop and its items.
