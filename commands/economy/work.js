@@ -6,8 +6,6 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-
 module.exports = {
     data: new SlashCommandBuilder().setName("work").setDescription("Command exectuted to earn coins"),
     async execute(interaction) {
