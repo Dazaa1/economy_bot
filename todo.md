@@ -1,0 +1,2 @@
+- [ ] RPG functionality.
+  - [ ] Create a shop table to store items and their prices. 
