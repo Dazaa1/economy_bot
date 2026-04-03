@@ -6,14 +6,22 @@ module.exports = {
         .setName('additem')
 		.setDescription('Add Item to the shop')
 		.addStringOption((option) => option.setName('name').setDescription('The item name').setRequired(true))
-		.addIntegerOption((option) => option.setName('price').setDescription('The item price'))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+		.addStringOption((option) => option.setName('description').setDescription('Information about the item').setRequired(true))
+        .addIntegerOption((option) => option.setName('price').setDescription('The item price'))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.setContexts(InteractionContextType.Guild),
     async execute(interaction) {
         const name = interaction.options.getString('name');
+        const description = interaction.options.getString('description');
+
         const price = interaction.options.getInteger('price');
 
-        shop.updateShop.run({ name, price });
-        await interaction.reply(`Add ${name} to the shop.`);
+        try {
+            shop.updateShop.run({ name, price, description });
+            await interaction.reply(`Added **${name}** to the shop.`);
+        } catch (err) {
+            console.error(err);
+            await interaction.reply({ content: "Failed to add item to database.", ephemeral: true });
+        }
     }
 }
