@@ -12,8 +12,7 @@ db.exec(
         username TEXT NOT NULL,
         coins INTEGER DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-    
+    ); 
 `);
 
 
