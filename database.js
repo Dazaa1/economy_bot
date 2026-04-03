@@ -45,4 +45,6 @@ shopDb.updateShop = shopDb.prepare(`
     VALUES (@name, @price, @description)
 `);
 
+shopDb.retrieveItems = shopDb.prepare(`SELECT * FROM shop`);
+
 module.exports = { db, shop: shopDb };

@@ -14,7 +14,7 @@ module.exports = {
         const name = interaction.options.getString('name');
         const description = interaction.options.getString('description');
 
-        const price = interaction.options.getInteger('price') ?? 0;
+        const price = interaction.options.getInteger('price');
 
         try {
             shop.updateShop.run({ name, price, description });
