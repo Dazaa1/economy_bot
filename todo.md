@@ -4,3 +4,7 @@
   - [x] Implement a command for users to buy items from the shop.
   - [x] Implement an inventory system where users store items they bought
   - [x] Implement functionality for each user to view his inventory.
+- [ ] Economy functionality.
+  - [x] Create a command for users to check their balance.
+  - [x] Create a command for users to earn coins by working.
+  - [x] Add a cooldown to the work command to prevent abuse.

@@ -7,6 +7,13 @@ module.exports = {
     async execute(interaction) {
         const { id, username } = interaction.user;
         const values = shop.retrieveItems.all();
+        console.log(values);
+        if (values.length === 0) {
+            return await interaction.reply({ 
+                content: "The shop is currently empty! Please check back later.", 
+                ephemeral: true 
+            });
+        }
         const itemPurchase = new StringSelectMenuBuilder()
             .setCustomId(interaction.id)
             .setPlaceholder('Make a selection!')
