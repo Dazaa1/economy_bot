@@ -7,10 +7,10 @@ module.exports = {
     async execute(interaction) {
         const { id, username } = interaction.user;
 
-        db.upsertUser.run({ id, username });
+        db.db.upsertUser.run({ id, username });
         
 
-        const user = db.getUser.get(id);
+        const user = db.db.getUser.get(id);
 
         await interaction.reply(
             `Your balance: **${user.coins} coins**`

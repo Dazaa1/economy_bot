@@ -1,5 +1,5 @@
 const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, SlashCommandBuilder, ComponentType} = require('discord.js');
-const { shop, inventory, db} = require('../../database');
+const { shop, inventory, db } = require('../../database');
 
 
 module.exports = {
@@ -37,8 +37,18 @@ module.exports = {
             console.log(interaction.values[0]);
             const element = shop.retrieveItem.get(interaction.values[0]);
             console.log(element);
-            // const owner = db.getUser.get(id);
 
+            const owner = db.getUser.get(id);
+            if (owner.coins < element.price) {
+                await interaction.update({
+                    content: `You don't have enough coins to buy a **${element.name}**!`,
+                    components: [] // Remove the menu after purchase
+                });
+                return;
+            }
+            
+
+            db.removeCoins.run(element.price, id);
             inventory.addItem.run({ owner: id, itemName: element.name, description: element.description, quantity: 1 });
 
             await interaction.update({

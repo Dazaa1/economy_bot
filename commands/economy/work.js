@@ -7,19 +7,24 @@ function getRandomIntInclusive(min, max) {
 }
 
 module.exports = {
-    data: new SlashCommandBuilder().setName("work").setDescription("Command exectuted to earn coins"),
+    data: new SlashCommandBuilder().setName("work").setDescription("Earn coins"),
     async execute(interaction) {
         const { id, username } = interaction.user;
 
-        db.upsertUser.run({ id, username });
+        // 1. Ensure user exists
+        db.db.upsertUser.run({ id, username }); // Note: you exported as { db: db }, so it might be db.db depending on your require
 
-        const coinsEarned = getRandomIntInclusive(200, 1000);
-        db.addCoins.run(coinsEarned, id);
-        const user = db.getUser.get(id);
+        const coinsEarned = getRandomIntInclusive(10, 100);
+        
+        // 2. Perform the update first
+        db.db.addCoins.run(coinsEarned, id);
+
+        // 3. Get the FRESH data from the database
+        const updatedUser = db.db.getUser.get(id);
 
         await interaction.reply(
             `You worked and earned **${coinsEarned} coins**!\n` +
-      `Your balance: **${user.coins} coins**`
-        )
+            `Your new balance: **${updatedUser.coins} coins**`
+        );
     }
 };
