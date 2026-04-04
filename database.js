@@ -58,7 +58,7 @@ shopDb.updateShop = shopDb.prepare(`
 `);
 
 shopDb.retrieveItems = shopDb.prepare(`SELECT * FROM shop`);
-shopDb.retriveItem = shopDb.prepare(`SELECT * FROM shop WHERE name = ?`)
+shopDb.retrieveItem = shopDb.prepare(`SELECT * FROM shop WHERE name = ?`)
 
 inventory.addItem = inventory.prepare(`
     INSERT INTO inventory (owner, itemName, description, quantity)
