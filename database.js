@@ -1,6 +1,7 @@
 const Database = require('better-sqlite3');
 const db = new Database('bot.db');
 const shopDb = new Database('shop.db');
+const inventory = new Database('inventory.db');
 
 db.pragma('journal_mode = WAL');
 shopDb.pragma('journal_mode = WAL');
@@ -24,6 +25,16 @@ shopDb.exec(`
     );
 `);
 
+inventory.exec(`
+    CREATE TABLE IF NOT EXISTS inventory (
+        owner TEXT NOT NULL,
+        ItemID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        itemName TEXT NOT NULL,
+        description TEXT NOT NULL DEFAULT 'NO description',
+        quantity INTEGER DEFAULT 1
+    )
+`)
+
 try {
     shopDb.exec("ALTER TABLE shop ADD COLUMN description TEXT NOT NULL DEFAULT 'No description';");
 } catch (err) {
@@ -46,5 +57,11 @@ shopDb.updateShop = shopDb.prepare(`
 `);
 
 shopDb.retrieveItems = shopDb.prepare(`SELECT * FROM shop`);
+shopDb.retriveItem = shopDb.prepare(`SELECT * FROM shop WHERE name = ?`)
 
-module.exports = { db, shop: shopDb };
+inventory.addItem = inventory.prepare(`
+    INSERT INTO inventory (owner, itemName, desciption, quantity)
+    VALUES (@owner, @itemName, @description, @quantity)    
+`)
+
+module.exports = { db, shop: shopDb, inventory };
