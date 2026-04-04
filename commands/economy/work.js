@@ -7,6 +7,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 module.exports = {
+    cooldown: 14400,
     data: new SlashCommandBuilder().setName("work").setDescription("Earn coins"),
     async execute(interaction) {
         const { id, username } = interaction.user;

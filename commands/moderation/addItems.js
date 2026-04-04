@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('Add Item to the shop')
 		.addStringOption((option) => option.setName('name').setDescription('The item name').setRequired(true))
 		.addStringOption((option) => option.setName('description').setDescription('Information about the item').setRequired(true))
-        .addIntegerOption((option) => option.setName('price').setDescription('The item price'))
+        .addIntegerOption((option) => option.setName('price').setDescription('The item price').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.setContexts(InteractionContextType.Guild),
     async execute(interaction) {
