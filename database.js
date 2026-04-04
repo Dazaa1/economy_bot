@@ -5,6 +5,7 @@ const inventory = new Database('inventory.db');
 
 db.pragma('journal_mode = WAL');
 shopDb.pragma('journal_mode = WAL');
+inventory.pragma('journal_mode = WAL');
 
 
 db.exec(`
@@ -27,8 +28,8 @@ shopDb.exec(`
 
 inventory.exec(`
     CREATE TABLE IF NOT EXISTS inventory (
+        ItemID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,    
         owner TEXT NOT NULL,
-        ItemID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         itemName TEXT NOT NULL,
         description TEXT NOT NULL DEFAULT 'NO description',
         quantity INTEGER DEFAULT 1
@@ -60,7 +61,7 @@ shopDb.retrieveItems = shopDb.prepare(`SELECT * FROM shop`);
 shopDb.retriveItem = shopDb.prepare(`SELECT * FROM shop WHERE name = ?`)
 
 inventory.addItem = inventory.prepare(`
-    INSERT INTO inventory (owner, itemName, desciption, quantity)
+    INSERT INTO inventory (owner, itemName, description, quantity)
     VALUES (@owner, @itemName, @description, @quantity)    
 `)
 
