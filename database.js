@@ -69,6 +69,6 @@ inventory.addItem = inventory.prepare(`
         quantity = quantity + excluded.quantity   
 `)
 
-
+inventory.getInventory = inventory.prepare(`SELECT * FROM inventory WHERE owner = ?`);
 
 module.exports = { db, shop: shopDb, inventory };
