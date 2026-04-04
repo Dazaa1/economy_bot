@@ -32,7 +32,8 @@ inventory.exec(`
         owner TEXT NOT NULL,
         itemName TEXT NOT NULL,
         description TEXT NOT NULL DEFAULT 'NO description',
-        quantity INTEGER DEFAULT 1
+        quantity INTEGER DEFAULT 1,
+        UNIQUE(owner, itemName)
     )
 `)
 
@@ -51,7 +52,7 @@ db.upsertUser = db.prepare(`
 
 db.getUser  = db.prepare(`SELECT * FROM users WHERE id = ?`);
 db.addCoins = db.prepare(`UPDATE users SET coins = coins + ? WHERE id = ?`);
-
+db.removeCoins = db.prepare(`UPDATE users SET coins = coins - ? WHERE id = ?`);
 shopDb.updateShop = shopDb.prepare(`
     INSERT INTO shop (name, price, description)
     VALUES (@name, @price, @description)
@@ -60,9 +61,14 @@ shopDb.updateShop = shopDb.prepare(`
 shopDb.retrieveItems = shopDb.prepare(`SELECT * FROM shop`);
 shopDb.retrieveItem = shopDb.prepare(`SELECT * FROM shop WHERE name = ?`)
 
+
 inventory.addItem = inventory.prepare(`
     INSERT INTO inventory (owner, itemName, description, quantity)
-    VALUES (@owner, @itemName, @description, @quantity)    
+    VALUES (@owner, @itemName, @description, @quantity)
+    ON CONFLICT(owner, itemName) DO UPDATE SET
+        quantity = quantity + excluded.quantity   
 `)
+
+inventory.getInventory = inventory.prepare(`SELECT * FROM inventory WHERE owner = ?`);
 
 module.exports = { db, shop: shopDb, inventory };
