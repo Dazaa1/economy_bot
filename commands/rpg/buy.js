@@ -46,6 +46,13 @@ module.exports = {
             console.log(element);
 
             const owner = db.getUser.get(id);
+            if (!owner) {
+                await interaction.update({
+                    content: `Sorry Your can't buy you have no coins`,
+                    components: []
+                });
+                return;
+            }
             if (owner.coins < element.price) {
                 await interaction.update({
                     content: `You don't have enough coins to buy a **${element.name}**!`,
