@@ -6,6 +6,7 @@ module.exports = {
     async execute(interaction) {
         const id = interaction.user.id;
         const userInventory = inventory.getInventory.all(id);
+        
         console.log(userInventory);
         if (userInventory.length === 0) {
             return await interaction.reply({ 
