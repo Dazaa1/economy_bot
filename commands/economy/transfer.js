@@ -36,7 +36,7 @@ module.exports = {
                 });
             } else {
                 db.removeCoins.run(coinsTransfered, id);
-                db.addCoins.run(addCoins, targetInformations.id);
+                db.addCoins.run(coinsTransfered, targetInformations.id);
                 await interaction.reply({
                     content: `You have transferred **${coinsTransfered} coins** to ${targetInformations.globalName}`,
                     flags: MessageFlags.Ephemeral
