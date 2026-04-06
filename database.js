@@ -51,6 +51,7 @@ db.upsertUser = db.prepare(`
 `);
 
 db.getUser  = db.prepare(`SELECT * FROM users WHERE id = ?`);
+db.getUsers = db.prepare(`SELECT * FROM users`);
 db.addCoins = db.prepare(`UPDATE users SET coins = coins + ? WHERE id = ?`);
 db.removeCoins = db.prepare(`UPDATE users SET coins = coins - ? WHERE id = ?`);
 shopDb.updateShop = shopDb.prepare(`
