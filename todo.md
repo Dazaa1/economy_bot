@@ -8,4 +8,4 @@
   - [x] Create a command for users to check their balance.
   - [x] Create a command for users to earn coins by working.
   - [x] Add a cooldown to the work command to prevent abuse.
-  - [ ] Add money transfert feature.
+  - [x] Add money transfert feature.
