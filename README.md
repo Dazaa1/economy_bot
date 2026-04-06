@@ -1,119 +1,244 @@
 # Economy Bot
 
-A simple Discord economy bot using Discord.js v14 and SQLite for persistent user balances.
+A feature-rich Discord economy bot built with **Discord.js v14** and **SQLite** for persistent user data management. Includes economy systems, RPG shopping mechanics, and moderation tools.
 
-## Features
+## 🎯 Features
 
-- `/bal` — View your current coin balance
-- `/work` — Earn a random amount of coins
-- `/ping` — Verify the bot is responsive
-- `/server` — Show server name and member count
-- `/user` — Show information about the user who ran the command
+### Economy System
+- **`/bal`** — View your current coin balance
+- **`/work`** — Earn coins (10-100) on a cooldown period
+- **`/transfer`** — Send coins to other users
+- **`/leaderboard`** — View the top richest users
 
-## Project Structure
+### RPG & Shop System
+- **`/shop`** — Browse available items in the shop
+- **`/buy`** — Purchase items from the shop
+- **`/inventory`** — Check your owned items
 
-- `index.js` — Main bot entry point
-- `deploy-commands.js` — Registers slash commands with a guild
-- `config.json` — Stores the bot token, client ID, and guild ID
-- `database.js` — SQLite database setup and prepared statements
-- `commands/` — Command modules grouped by category
-  - `economy/` — Economy-related slash commands
-  - `utility/` — General utility slash commands
+### Moderation Tools
+- **`/ban`** — Ban a member from the server with optional reason
+- **`/kick`** — Remove a member from the server
+- **`/addItems`** — Add items to the shop (admin only)
 
-## Requirements
+### Utility Commands
+- **`/ping`** — Check bot connectivity and latency
+- **`/server`** — Display server information (name, member count)
+- **`/user`** — View user profile information (username, join date)
 
-- Node.js 18+ (or compatible version for Discord.js v14)
-- npm
-- A Discord application with a bot token
-- `GUILD_ID` for testing in a server
+## 📁 Project Structure
 
-## Installation
+```
+economyBot/
+├── index.js                    # Main bot entry point & command handler
+├── deploy-commands.js          # Slash command registration script
+├── database.js                 # SQLite database setup & queries
+├── config.json                 # Bot configuration (token, IDs)
+├── package.json                # Project dependencies
+├── discloud.config             # Deployment configuration
+├── README.md                   # This file
+├── todo.md                     # Development roadmap
+│
+├── commands/
+│   ├── economy/                # Economy system commands
+│   │   ├── bal.js             # Balance display
+│   │   ├── work.js            # Earn coins
+│   │   ├── transfer.js        # Send coins to users
+│   │   └── leaderboard.js     # Top users list
+│   │
+│   ├── rpg/                    # RPG & shop commands
+│   │   ├── shop.js            # View shop items
+│   │   ├── buy.js             # Purchase items
+│   │   └── inventory.js       # View owned items
+│   │
+│   ├── moderation/             # Moderation commands
+│   │   ├── ban.js             # Ban users
+│   │   ├── kick.js            # Kick users
+│   │   └── addItems.js        # Add shop items
+│   │
+│   └── utility/                # General utility commands
+│       ├── ping.js            # Bot latency check
+│       ├── server.js          # Server information
+│       └── user.js            # User information
+```
 
-1. Clone the repository:
+## 📋 Requirements
 
-   ```bash
-   git clone https://github.com/daza/personal/economyBot.git
-   cd economyBot
-   ```
+- **Node.js** 18+ (required for Discord.js v14)
+- **npm** or npm-compatible package manager
+- A Discord application with bot token
+- Server ID (Guild ID) for development testing
+- Basic understanding of Discord bot configuration
 
-2. Install dependencies:
+## 🚀 Getting Started
 
-   ```bash
-   npm install
-   ```
+### 1. Clone & Install
 
-3. Configure `config.json`:
+```bash
+git clone https://github.com/daza/personal/economyBot.git
+cd economyBot
+npm install
+```
 
-   ```json
-   {
-     "token": "YOUR_BOT_TOKEN",
-     "clientId": "YOUR_CLIENT_ID",
-     "guildId": "YOUR_GUILD_ID"
-   }
-   ```
+### 2. Configure the Bot
 
-   > Do not commit your bot token or sensitive configuration to version control.
+Edit `config.json` with your bot credentials:
 
-## Register Slash Commands
+```json
+{
+  "token": "YOUR_BOT_TOKEN_HERE",
+  "clientId": "YOUR_CLIENT_ID_HERE",
+  "guildId": "YOUR_GUILD_ID_HERE"
+}
+```
 
-Before running the bot, deploy the slash commands to your guild:
+> **⚠️ Security:** Never commit `config.json` with your bot token to version control. Add it to `.gitignore`.
+
+### 3. Register Slash Commands
+
+Deploy commands to Discord before running the bot:
 
 ```bash
 node deploy-commands.js
 ```
 
-If the command registration succeeds, you will see a message like:
+**Expected output:**
+```
+Started refreshing X application (/) commands.
+Successfully reloaded X application (/) commands.
+```
 
-- `Started refreshing X application (/) commands.`
-- `Successfully reloaded X application (/) commands.`
-
-## Run the Bot
-
-Start the bot with:
+### 4. Start the Bot
 
 ```bash
 node index.js
 ```
 
-You should see:
-
-```text
-Ready! Logged in as <bot username>
+**Expected output:**
+```
+Ready! Logged in as YourBotUsername#0000
 ```
 
-## Commands
+## 💻 Command Reference
 
-### Economy
+### Economy Commands
 
-- `/bal` — Shows the user's balance from the SQLite database
-- `/work` — Adds a random amount of coins (200–1000) to the user's balance and displays the updated total
+| Command | Description | Cooldown |
+|---------|-------------|----------|
+| `/bal` | Display your current coin balance | None |
+| `/work` | Earn coins (10-100 range) | 30 minutes |
+| `/transfer <user> <amount>` | Send coins to another user | None |
+| `/leaderboard` | View top 10 richest users | None |
 
-### Utility
+### RPG & Shop Commands
 
-- `/ping` — Replies with `Pong!`
-- `/server` — Replies with server name and member count
-- `/user` — Replies with the invoking user's username and join date.
+| Command | Description | Cooldown |
+|---------|-------------|----------|
+| `/shop` | Browse available items | None |
+| `/buy` | Purchase an item from the shop | None |
+| `/inventory` | Check your owned items | None |
 
-### Moderation
+### Moderation Commands
 
-- `/ban` — Bans a specified user from the server (requires appropriate permissions)
+| Command | Description | Requirement |
+|---------|-------------|-------------|
+| `/ban <user> [reason]` | Ban a user from the server | Ban Members permission |
+| `/kick <user> [reason]` | Kick a user from the server | Kick Members permission |
+| `/addItems` | Add items to the shop | Admin permission |
 
-## Database
+### Utility Commands
 
-The bot uses `better-sqlite3` and stores data in `bot.db`.
+| Command | Description |
+|---------|-------------|
+| `/ping` | Check bot responsiveness and latency |
+| `/server` | Display server information |
+| `/user` | Show your profile information |
 
-- `users` table fields:
-  - `id` — Discord user ID
-  - `username` — Discord username
-  - `coins` — User balance
-  - `created_at` — Timestamp when the user was added
+## 📊 Database
 
-## Notes
+The bot uses **SQLite** (via `better-sqlite3`) with the following structure:
 
-- Commands are automatically loaded from the `commands/` folder.
-- New commands should export `data` and `execute` properties.
-- `database.js` prepares reusable statements for performance.
+### Users Table
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | TEXT | Discord user ID (primary key) |
+| `username` | TEXT | Discord username |
+| `coins` | INTEGER | Current coin balance |
+| `created_at` | TIMESTAMP | Account creation timestamp |
 
-## License
+### Features
+- Persistent user data across bot restarts
+- Fast query performance with prepared statements
+- Transaction support for safe money transfers
+- Inventory tracking for RPG items
 
-ISC
+## 🔧 Architecture
+
+### Command Handler
+- Commands are automatically discovered from the `commands/` directory
+- Each command exports `data` (slash command definition) and `execute` (handler function)
+- Supports cooldown management for rate limiting
+- Middleware for permission validation
+
+### Database Layer
+- Centralized database operations in `database.js`
+- Prepared statements for all queries
+- Connection pooling via `better-sqlite3`
+- Type-safe parameter binding
+
+### Discord Integration
+- Discord.js v14 with Slash Commands API
+- Guild-scoped command registration via `deploy-commands.js`
+- Interaction handling with error tracking
+- User permission validation for moderation commands
+
+## 📦 Dependencies
+
+- **discord.js** (^14.26.0) — Discord bot framework
+- **better-sqlite3** (^12.8.0) — SQLite database driver
+
+See `package.json` for full dependency information.
+
+## 🛠 Development
+
+### Adding a New Command
+
+1. Create a new file in the appropriate `commands/<category>/` folder:
+
+```javascript
+const { SlashCommandBuilder } = require('discord.js');
+
+module.exports = {
+    cooldown: 5, // Optional: cooldown in seconds
+    data: new SlashCommandBuilder()
+        .setName('yourcommand')
+        .setDescription('Command description'),
+    async execute(interaction) {
+        await interaction.reply('Command executed!');
+    }
+};
+```
+
+2. Register commands:
+```bash
+node deploy-commands.js
+```
+
+3. Restart the bot
+
+### Code Style
+- Use async/await for Discord interactions
+- Validate all user inputs
+- Handle errors gracefully with user feedback
+- Keep command logic modular and testable
+
+## 📝 License
+
+ISC License — See `package.json` for details
+
+## 👤 Author
+
+**daza** — [GitHub](https://github.com/daza)
+
+---
+
+**Happy bot development!** 🎉 For updates and roadmap, check [todo.md](todo.md).
