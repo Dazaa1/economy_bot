@@ -10,5 +10,4 @@
   - [x] Add a cooldown to the work command to prevent abuse.
   - [x] Add money transfert feature.
   - [ ] Add a command that displays the top 5 richest people in terms of coins.
-    - [ ] Implement a sorting algorithm.
     - [ ] Use EmbedBuilder to display
