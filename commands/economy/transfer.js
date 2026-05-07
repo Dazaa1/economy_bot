@@ -22,16 +22,23 @@ module.exports = {
             })
         }
         
+        
+
         // checking if the sender and target are registered in db
         if (!sender || !target) {
             await interaction.reply({
-                content: 'Sorry but we can\'t transfert money right now try ``/work`` first!',
+                content: 'Sorry but we can\'t transfert money ' + `<@${targetInformations.id}>` +' should try ``/work`` first!',
                 flags: MessageFlags.Ephemeral
             });
         } else { // the sender is registered
             if (sender.coins < coinsTransfered) {
                 return interaction.reply({
                     content: 'Not enough coins to transfer!',
+                    flags: MessageFlags.Ephemeral
+                });
+            } if (coinsTransfered < 0) {
+                await interaction.reply({
+                    content: 'Oops you can\'t do that here.',
                     flags: MessageFlags.Ephemeral
                 });
             } else {

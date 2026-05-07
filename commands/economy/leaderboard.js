@@ -2,7 +2,6 @@ const { SlashCommandBuilder, MessageFlags, EmbedBuilder } = require('discord.js'
 const { db } = require('../../database');
 
 
-
 module.exports = {
     data: new SlashCommandBuilder().setName('leaderboard').setDescription('the top 5 richest in the server!'),
     async execute(interaction) {
